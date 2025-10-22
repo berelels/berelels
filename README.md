@@ -6,12 +6,6 @@
 
 ###
 
-<div align="left">
-  <img height="150" src="https://imgflip.com/gif/a9wasz"  />
-</div>
-
-###
-
 <p align="left">eu, Gabriel:<br><br>- 🔭 atualmente cursando Técnico em Informática no Senac MG.<br>- 📚 estou estudando e focando nos meus estudos!<br>- ⚡ no meu tempo livre eu gosto de  jogar futebol, tocar instrumentos, e principalmente jogar.</p>
 
 ###
@@ -43,8 +37,6 @@
 </div>
 
 ###
-
-![Snake animation](https://github.com/berelels/berelels/blob/output/github-contribution-grid-snake.svg)
 
 ###
 
