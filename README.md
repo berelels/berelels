@@ -44,7 +44,7 @@
 
 ###
 
-<img src="https://raw.githubusercontent.com/berelels/berelels/output/snake.svg" alt="Snake animation" />
+![Snake animation](https://github.com/berelels/berelels/blob/output/github-contribution-grid-snake.svg)
 
 ###
 
