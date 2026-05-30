@@ -1,12 +1,12 @@
-<h1 align="center">eai!👋</h1>
+<h1 align="center">hey there!👋</h1>
 
 ###
 
-<h3 align="left">👩‍💻  sobre mim...</h3>
+<h3 align="left">👩‍💻  about me...</h3>
 
 ###
 
-<p align="left">eu, Gabriel:<br><br>- 🔭 atualmente cursando Técnico em Informática no Senac MG.<br>- 📚 estou estudando e focando nos meus estudos!<br>- ⚡ no meu tempo livre eu gosto de  jogar futebol, tocar instrumentos, e principalmente jogar.</p>
+<p align="left">i'm Gabriel:<br><br>- 🔭 currently graduated at Information Technology Technical Degree at Senac MG.<br>- 📚 focusing on my studies and expanding my knowledge!<br>- ⚡ in my free time, I love playing football, playing musical instruments, and especially gaming.</p>
 
 ###
 
@@ -18,7 +18,7 @@
 
 ###
 
-<h3 align="left">🛠 linguagens e ferramentas...</h3>
+<h3 align="left">🛠 languages and tools...</h3>
 
 ###
 
