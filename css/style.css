@@ -530,6 +530,13 @@ section { padding: 100px 0; position: relative; z-index: 1; }
   color: var(--accent);
   background: var(--accent-soft);
 }
+.project-link-visit {
+  width: auto;
+  padding: 0 12px;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
 .project-name {
   font-size: 1.05rem; font-weight: 700;
   margin-bottom: 8px;
