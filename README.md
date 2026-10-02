@@ -1,6 +1,6 @@
 # Hi, I'm Gabriel 👋
 
-IT gradueted technician (Senac MG) who builds tools that solve real problems, mostly backend, desktop apps, and Linux tinkering. Heading into a Software Engineering degree.
+Graduated IT technician (Senac MG) who builds tools that solve real problems, mostly backend, desktop apps, and Linux tinkering. Heading into a Software Engineering degree.
 
 ### Things I've made
 
