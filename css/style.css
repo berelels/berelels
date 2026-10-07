@@ -284,31 +284,6 @@ body::before {
   width: 100%;
 }
 
-/* pill de status */
-.hero-tag {
-  display: inline-flex; align-items: center; gap: 9px;
-  background: var(--paper-2);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 7px 16px 7px 12px;
-  font-size: 0.78rem; font-weight: 500;
-  color: var(--ink-soft);
-  margin-bottom: 26px;
-  box-shadow: var(--shadow-sm);
-  animation: rise 0.7s var(--ease) both;
-}
-.hero-tag-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: #4f9d69;
-  box-shadow: 0 0 0 0 rgba(79,157,105,0.55);
-  animation: ping 2s ease-out infinite;
-}
-@keyframes ping {
-  0%   { box-shadow: 0 0 0 0 rgba(79,157,105,0.5); }
-  70%  { box-shadow: 0 0 0 8px rgba(79,157,105,0); }
-  100% { box-shadow: 0 0 0 0 rgba(79,157,105,0); }
-}
-
 /* ── TIPOGRAFIA CINÉTICA ── */
 .hero-title {
   font-size: clamp(2.6rem, 7.2vw, 5.2rem);
@@ -336,6 +311,8 @@ body::before {
   will-change: transform;
 }
 .kinetic-line .char.space { width: 0.28em; }
+/* palavra inteira num bloco so: a linha nunca quebra no meio dela */
+.kinetic-line .word { display: inline-block; white-space: nowrap; }
 @keyframes char-in {
   to { transform: translateY(0) rotate(0); opacity: 1; }
 }
@@ -645,28 +622,15 @@ section { padding: 110px 0; position: relative; z-index: 1; }
 ══════════════════════════════════ */
 #projects { background: var(--paper); }
 
-.projects-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
-.filter-btn {
-  padding: 8px 18px;
-  border-radius: 999px;
-  font-size: 0.83rem; font-weight: 500;
-  border: 1px solid var(--line);
-  background: var(--paper-2);
-  color: var(--ink-soft);
-  cursor: pointer; transition: all var(--transition);
-}
-.filter-btn:hover { border-color: var(--line-strong); color: var(--ink); }
-.filter-btn.active {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--paper);
-}
-[data-theme="dark"] .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #1a1209; }
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  /* sao 4 projetos: 2x2 fecha o bloco, 3+1 deixaria um orfao */
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
   gap: 18px;
+}
+@media (min-width: 900px) {
+  .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
 }
 .project-card {
   background: var(--paper-2);
@@ -755,7 +719,6 @@ section { padding: 110px 0; position: relative; z-index: 1; }
   border-radius: 999px;
   padding: 3px 9px;
 }
-.project-card.dimmed { opacity: 0.25; transform: scale(0.98); pointer-events: none; }
 
 /* ══════════════════════════════════
    CONTATO

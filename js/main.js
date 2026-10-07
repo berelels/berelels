@@ -44,13 +44,28 @@ function splitChars(line, baseDelay) {
   line.setAttribute('aria-label', text);
   line.textContent = '';
 
-  [...text].forEach((ch, i) => {
+  // as letras sao inline-block, entao o navegador quebraria linha entre duas
+  // quaisquer ("nós s / omos"). Agrupando por palavra, a quebra so cai no espaco.
+  let i = 0, word = null;
+  [...text].forEach(ch => {
     const span = document.createElement('span');
     span.className = ch === ' ' ? 'char space' : 'char';
     span.textContent = ch === ' ' ? '\u00a0' : ch;
     span.style.setProperty('--d', `${baseDelay + i * 0.032}s`);
     span.setAttribute('aria-hidden', 'true');
-    line.appendChild(span);
+    i++;
+
+    if (ch === ' ') {
+      word = null;
+      line.appendChild(span);
+    } else {
+      if (!word) {
+        word = document.createElement('span');
+        word.className = 'word';
+        line.appendChild(word);
+      }
+      word.appendChild(span);
+    }
   });
 }
 
@@ -354,22 +369,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// ── FILTROS DE PROJETOS ──
-const filterBtns = document.querySelectorAll('.filter-btn');
 const cards = document.querySelectorAll('.project-card');
-
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    const filter = btn.dataset.filter;
-    cards.forEach(card => {
-      const show = filter === 'all' || card.dataset.category === filter;
-      card.classList.toggle('dimmed', !show);
-    });
-  });
-});
 
 // ── BRILHO QUE SEGUE O MOUSE NOS CARDS ──
 if (!reduceMotion) {
@@ -417,177 +417,159 @@ markActiveSection();
 // ══════════════════════════════════
 const I18N = {
   pt: {
-    'nav.home': 'Início', 'nav.about': 'Sobre', 'nav.projects': 'Projetos', 'nav.contact': 'Contato',
+    'nav.home': "Início", 'nav.about': "Sobre", 'nav.projects': "Projetos", 'nav.contact': "Contato",
 
-    'hero.tag': 'Disponível',
-    'hero.iam': ', eu sou',
-    'hero.bio': 'Construo software sob medida que resolve problema real — do desktop à nuvem. Python, Full-Stack Web e automação, com carinho pelos detalhes e pelo código que a pessoa do outro lado vai usar todo dia.',
-    'hero.location': 'Brasil',
-    'hero.status': 'Disponível agora',
-    'hero.btnProjects': 'Ver projetos',
-    'hero.btnContact': 'Falar comigo',
-    'hero.follow': 'Me segue:',
-    'hero.roles': ['Desenvolvedor Python', 'Full-Stack Web', 'Automação & Linux', 'Apps Desktop'],
+    'hero.iam': ", nós somos",
+    'hero.bio': "Estúdio independente de software. Construímos app, sistema de gestão e ferramenta sob medida — com carinho pelos detalhes e pela pessoa do outro lado, que vai usar aquilo todo dia.",
+    'hero.location': "Brasil",
+    'hero.status': "Aceitando projetos",
+    'hero.btnProjects': "Ver o que fazemos",
+    'hero.btnContact': "Falar com a gente",
+    'hero.follow': "Segue a gente:",
+    'hero.roles': ["Apps Android & desktop", "Sistemas de gestão", "Automação & Linux", "Software sob medida"],
 
-    'about.label': 'Sobre mim',
-    'about.title': 'Código com propósito,<br><em>soluções com impacto.</em>',
-    'about.lead': 'Sou Gabriel Dias, nascido em Divinópolis, MG. Minha jornada começou com automação e administração de sistemas Linux, e evoluiu para aplicações desktop robustas e sistemas web completos.',
-    'about.p2': 'Tenho experiência com <strong>arquitetura MVC</strong>, integração com <strong>banco de dados em nuvem (Supabase)</strong>, geração de relatórios em PDF, APIs RESTful e interfaces modernas com Python/Flet. Também desenvolvo landing pages e sistemas web com HTML, CSS, JavaScript e PHP.',
-    'about.p3': 'Formado no <strong>Senac Minas</strong> em <strong>Técnico em Informática</strong>, buscando sempre entregar valor real através de software bem construído.',
-    'about.fact1': 'anos escrevendo código',
-    'about.fact3': 'idiomas',
+    'about.label': "Sobre o estúdio",
+    'about.title': "Estúdio pequeno,<br><em>software que aguenta o dia a dia.</em>",
+    'about.lead': "A Catta Studios é um estúdio independente tocado por Gabriel Dias, em Divinópolis, MG. Começou em automação e administração de Linux e virou um lugar de construir app e sistema que gente de verdade usa no trabalho.",
+    'about.p2': "Trabalhamos com <strong>arquitetura MVC</strong>, banco de dados local e <strong>em nuvem</strong>, relatórios em PDF, APIs RESTful e interfaces em Python/Flet, React e TypeScript. Também entregamos sistemas web completos com JavaScript, PHP e PostgreSQL.",
+    'about.p3': "Por trás do estúdio tem um <strong>Técnico em Informática</strong> formado pelo <strong>Senac Minas</strong>, com a mania de só entregar o que ele mesmo usaria.",
+    'about.fact1': "anos construindo software",
+    'about.fact3': "idiomas",
 
-    'toolkit.title': 'Caixa de ferramentas',
-    'toolkit.g1': 'Linguagens', 'toolkit.g2': 'Interfaces',
-    'toolkit.g3': 'Dados & back-end', 'toolkit.g4': 'Ambiente',
-    'toolkit.responsive': 'Design responsivo',
+    'toolkit.title': "Stack do estúdio",
+    'toolkit.g1': "Linguagens", 'toolkit.g2': "Interfaces",
+    'toolkit.g3': "Dados & back-end", 'toolkit.g4': "Ambiente",
+    'toolkit.responsive': "Design responsivo",
 
-    'projects.label': 'Projetos',
-    'projects.title': 'O que eu <em>construí</em>',
-    'projects.sub': 'Soluções reais para problemas reais — cada projeto tem uma história e um objetivo claro.',
-    'filter.all': 'Todos', 'filter.tool': 'Ferramentas',
-    'project.visit': 'Visitar',
+    'projects.label': "Projetos",
+    'projects.title': "O que a gente <em>constrói</em>",
+    'projects.sub': "Quatro projetos que mostram o alcance do estúdio — do ERP que roda uma empresa ao script que resolve um problema de desktop no Linux.",
+    'project.visit': "Visitar",
 
-    'proj.rodao': 'Sistema de gestão de fretes com precificação dinâmica por peso e estado de destino, cadastro de clientes e integração com API ViaCEP. Arquitetura frontend modular com persistência local.',
-    'proj.unbox': 'Software comercial de controle de estoque e inventário com arquitetura MVC, gestão de empréstimos com comprovantes em PDF, níveis de acesso diferenciados (Admin/User) e persistência estruturada.',
-    'proj.hermes': 'Sistema de gestão empresarial completo (ERP) com módulos de Estoque, Vendas, Financeiro e Nota Fiscal. SPA modular com regras de negócio robustas, controle de caixa e exportação de relatórios.',
-    'proj.spoton': 'Preditor de resultados de partidas utilizando modelagem estatística com distribuição de Poisson e correção Dixon-Coles. Backend FastAPI com análise de dados esportivos em tempo real.',
-    'proj.pulse': 'Plataforma de gestão de estúdio musical com controle de bandas, equipamentos, agendamentos e faturamento. Interface premium inspirada em Bento Pro, Glassmorphism e Dynamic Island.',
-    'proj.carona': 'Aplicativo PWA offline-first para controle mensal de caronas e divisão de custos de gasolina. Interface mobile-friendly com persistência local e funcionamento offline completo.',
-    'proj.wallpaper': 'Solução para executar wallpapers animados do Steam Workshop nativamente no GNOME Shell com X11 — compatível com Zorin OS, Ubuntu e distros baseadas em GNOME.',
-    'proj.festa': 'Landing page moderna e de alta conversão para empresa de locação de kits de festa no Brasil. Alternância Dark/Light/System implementada puramente com HTML e CSS moderno.',
+    'proj.hermes': "ERP completo com módulos de Estoque, Vendas, Financeiro e Nota Fiscal. SPA modular com regras de negócio robustas, controle de caixa, PostgreSQL e exportação de relatórios. É o maior sistema do estúdio.",
+    'proj.boodice': "Companion de mesa para D&D 5e: ficha de personagem, rolagem de dados e glossário de regras, tudo offline. Monorepo em TypeScript que entrega a mesma base como app Android (Capacitor), desktop (Electron) e PWA, com SQLite local.",
+    'proj.unbox': "Controle de estoque e inventário em arquitetura MVC, com gestão de empréstimos, comprovantes em PDF e níveis de acesso (Admin/User). Feito para inventário escolar.",
+    'proj.wallpaper': "Wallpapers animados do Steam Workshop rodando nativamente no GNOME Shell com X11, sem depender do Windows. Compatível com Zorin OS, Ubuntu e derivadas — é o projeto do estúdio que mais chamou atenção de fora.",
 
-    'contact.label': 'Contato',
-    'contact.title': 'Tem um projeto?<br><em>Vamos tomar um café.</em>',
-    'contact.sub': 'Aberto a freelas, parcerias e oportunidades de trabalho. Me manda uma mensagem e a gente constrói algo bom juntos.',
+    'contact.label': "Contato",
+    'contact.title': "Tem um projeto?<br><em>Vamos conversar.</em>",
+    'contact.sub': "Aberto a parcerias, projetos sob medida e colaborações. Manda uma mensagem e a gente constrói algo bom junto.",
 
-    'footer.made': 'Feito com ☕ e carinho por',
-    'footer.source': 'Código fonte',
+    'footer.made': "Feito com carinho por",
+    'footer.source': "Código fonte",
 
-    'aria.theme': 'Alternar tema claro e escuro',
-    'aria.nav': 'Navegação principal',
-    'aria.hero': 'Apresentação',
-    'aria.menu': 'Abrir menu',
-    'aria.lang': 'Escolher idioma',
-    'aria.live': 'Ver projeto ao vivo',
-    'aria.gh': 'Ver código no GitHub',
-    'aria.cat': 'Animação em pixel art de um gato que pisca e brinca com um novelo de lã',
+    'aria.theme': "Alternar tema claro e escuro",
+    'aria.nav': "Navegação principal",
+    'aria.hero': "Apresentação",
+    'aria.menu': "Abrir menu",
+    'aria.lang': "Escolher idioma",
+    'aria.live': "Ver projeto ao vivo",
+    'aria.gh': "Ver código no GitHub",
+    'aria.cat': "Animação em pixel art de um gato que pisca e brinca com um novelo de lã",
   },
 
   en: {
-    'nav.home': 'Home', 'nav.about': 'About', 'nav.projects': 'Projects', 'nav.contact': 'Contact',
+    'nav.home': "Home", 'nav.about': "About", 'nav.projects': "Projects", 'nav.contact': "Contact",
 
-    'hero.tag': 'Available',
-    'hero.iam': ", I'm",
-    'hero.bio': 'I build custom software that solves real problems — from desktop to cloud. Python, full-stack web and automation, with care for the details and for the code someone on the other side will use every day.',
-    'hero.location': 'Brazil',
-    'hero.status': 'Available now',
-    'hero.btnProjects': 'See projects',
-    'hero.btnContact': 'Get in touch',
-    'hero.follow': 'Follow me:',
-    'hero.roles': ['Python Developer', 'Full-Stack Web', 'Automation & Linux', 'Desktop Apps'],
+    'hero.iam': ", we are",
+    'hero.bio': "An independent software studio. We build apps, management systems and custom tools — with care for the details and for the person on the other side, who will use it every day.",
+    'hero.location': "Brazil",
+    'hero.status': "Taking on projects",
+    'hero.btnProjects': "See our work",
+    'hero.btnContact': "Talk to us",
+    'hero.follow': "Follow us:",
+    'hero.roles': ["Android & desktop apps", "Management systems", "Automation & Linux", "Custom software"],
 
-    'about.label': 'About me',
-    'about.title': 'Code with purpose,<br><em>solutions with impact.</em>',
-    'about.lead': "I'm Gabriel Dias, born in Divinópolis, MG, Brazil. My path started with automation and Linux system administration, and grew into robust desktop applications and complete web systems.",
-    'about.p2': 'I have experience with <strong>MVC architecture</strong>, <strong>cloud database integration (Supabase)</strong>, PDF report generation, RESTful APIs and modern interfaces with Python/Flet. I also build landing pages and web systems with HTML, CSS, JavaScript and PHP.',
-    'about.p3': 'Graduated from <strong>Senac Minas</strong> as an <strong>IT Technician</strong>, always aiming to deliver real value through well-built software.',
-    'about.fact1': 'years writing code',
-    'about.fact3': 'languages',
+    'about.label': "About the studio",
+    'about.title': "A small studio,<br><em>software that holds up every day.</em>",
+    'about.lead': "Catta Studios is an independent studio run by Gabriel Dias, in Divinópolis, MG, Brazil. It started in automation and Linux system administration and grew into a place for building apps and systems that real people use at work.",
+    'about.p2': "We work with <strong>MVC architecture</strong>, local and <strong>cloud databases</strong>, PDF reports, RESTful APIs and interfaces in Python/Flet, React and TypeScript. We also deliver complete web systems with JavaScript, PHP and PostgreSQL.",
+    'about.p3': "Behind the studio there is an <strong>IT Technician</strong> trained at <strong>Senac Minas</strong>, with a habit of only shipping what he would use himself.",
+    'about.fact1': "years building software",
+    'about.fact3': "languages",
 
-    'toolkit.title': 'Toolbox',
-    'toolkit.g1': 'Languages', 'toolkit.g2': 'Interfaces',
-    'toolkit.g3': 'Data & back-end', 'toolkit.g4': 'Environment',
-    'toolkit.responsive': 'Responsive design',
+    'toolkit.title': "Studio stack",
+    'toolkit.g1': "Languages", 'toolkit.g2': "Interfaces",
+    'toolkit.g3': "Data & back-end", 'toolkit.g4': "Environment",
+    'toolkit.responsive': "Responsive design",
 
-    'projects.label': 'Projects',
-    'projects.title': "What I've <em>built</em>",
-    'projects.sub': 'Real solutions for real problems — every project has a story and a clear goal.',
-    'filter.all': 'All', 'filter.tool': 'Tools',
-    'project.visit': 'Visit',
+    'projects.label': "Projects",
+    'projects.title': "What we <em>build</em>",
+    'projects.sub': "Four projects that show the studio reach — from the ERP that runs a company to the script that fixes a Linux desktop problem.",
+    'project.visit': "Visit",
 
-    'proj.rodao': 'Freight management system with dynamic pricing by weight and destination state, customer registry and ViaCEP API integration. Modular frontend architecture with local persistence.',
-    'proj.unbox': 'Commercial stock and inventory control software with MVC architecture, loan management with PDF receipts, role-based access levels (Admin/User) and structured persistence.',
-    'proj.hermes': 'Complete business management system (ERP) with Inventory, Sales, Finance and Invoicing modules. Modular SPA with robust business rules, cash control and report export.',
-    'proj.spoton': 'Match result predictor using statistical modeling with Poisson distribution and Dixon-Coles correction. FastAPI backend with real-time sports data analysis.',
-    'proj.pulse': 'Music studio management platform with control of bands, equipment, bookings and billing. Premium interface inspired by Bento Pro, Glassmorphism and Dynamic Island.',
-    'proj.carona': 'Offline-first PWA for monthly carpool tracking and fuel cost splitting. Mobile-friendly interface with local persistence and full offline operation.',
-    'proj.wallpaper': 'A way to run animated Steam Workshop wallpapers natively on GNOME Shell with X11 — compatible with Zorin OS, Ubuntu and GNOME-based distros.',
-    'proj.festa': 'Modern, high-conversion landing page for a party kit rental company in Brazil. Dark/Light/System switching implemented purely with HTML and modern CSS.',
+    'proj.hermes': "A complete ERP with Inventory, Sales, Finance and Invoicing modules. Modular SPA with solid business rules, cash control, PostgreSQL and report exports. The biggest system the studio has built.",
+    'proj.boodice': "A tabletop companion for D&D 5e: character sheet, dice rolling and a rules glossary, all offline. A TypeScript monorepo that ships the same codebase as an Android app (Capacitor), desktop (Electron) and PWA, with local SQLite.",
+    'proj.unbox': "Stock and inventory control on an MVC architecture, with loan management, PDF receipts and access levels (Admin/User). Built for school inventory.",
+    'proj.wallpaper': "Animated Steam Workshop wallpapers running natively on GNOME Shell with X11, no Windows needed. Compatible with Zorin OS, Ubuntu and derivatives — the studio project that drew the most outside attention.",
 
-    'contact.label': 'Contact',
-    'contact.title': "Got a project?<br><em>Let's grab a coffee.</em>",
-    'contact.sub': "Open to freelance work, partnerships and job opportunities. Send me a message and let's build something good together.",
+    'contact.label': "Contact",
+    'contact.title': "Got a project?<br><em>Let us talk.</em>",
+    'contact.sub': "Open to partnerships, custom projects and collaborations. Send a message and we build something good together.",
 
-    'footer.made': 'Made with ☕ and care by',
-    'footer.source': 'Source code',
+    'footer.made': "Made with care by",
+    'footer.source': "Source code",
 
-    'aria.theme': 'Toggle light and dark theme',
-    'aria.nav': 'Main navigation',
-    'aria.hero': 'Introduction',
-    'aria.menu': 'Open menu',
-    'aria.lang': 'Choose language',
-    'aria.live': 'View live project',
-    'aria.gh': 'View code on GitHub',
-    'aria.cat': 'Pixel art animation of a cat blinking and playing with a ball of yarn',
+    'aria.theme': "Toggle light and dark theme",
+    'aria.nav': "Main navigation",
+    'aria.hero': "Introduction",
+    'aria.menu': "Open menu",
+    'aria.lang': "Choose language",
+    'aria.live': "View live project",
+    'aria.gh': "View code on GitHub",
+    'aria.cat': "Pixel art animation of a cat that blinks and plays with a ball of yarn",
   },
 
   es: {
-    'nav.home': 'Inicio', 'nav.about': 'Sobre', 'nav.projects': 'Proyectos', 'nav.contact': 'Contacto',
+    'nav.home': "Inicio", 'nav.about': "Sobre", 'nav.projects': "Proyectos", 'nav.contact': "Contacto",
 
-    'hero.tag': 'Disponible',
-    'hero.iam': ', soy',
-    'hero.bio': 'Construyo software a medida que resuelve problemas reales — del escritorio a la nube. Python, Full-Stack Web y automatización, con cariño por los detalles y por el código que la persona del otro lado usará todos los días.',
-    'hero.location': 'Brasil',
-    'hero.status': 'Disponible ahora',
-    'hero.btnProjects': 'Ver proyectos',
-    'hero.btnContact': 'Hablar conmigo',
-    'hero.follow': 'Sígueme:',
-    'hero.roles': ['Desarrollador Python', 'Full-Stack Web', 'Automatización & Linux', 'Apps de Escritorio'],
+    'hero.iam': ", somos",
+    'hero.bio': "Estudio independiente de software. Construimos apps, sistemas de gestión y herramientas a medida — con cariño por los detalles y por la persona del otro lado, que lo va a usar todos los días.",
+    'hero.location': "Brasil",
+    'hero.status': "Aceptando proyectos",
+    'hero.btnProjects': "Ver lo que hacemos",
+    'hero.btnContact': "Hablar con nosotros",
+    'hero.follow': "Síguenos:",
+    'hero.roles': ["Apps Android y escritorio", "Sistemas de gestión", "Automatización y Linux", "Software a medida"],
 
-    'about.label': 'Sobre mí',
-    'about.title': 'Código con propósito,<br><em>soluciones con impacto.</em>',
-    'about.lead': 'Soy Gabriel Dias, nacido en Divinópolis, MG, Brasil. Mi camino empezó con automatización y administración de sistemas Linux, y creció hacia aplicaciones de escritorio robustas y sistemas web completos.',
-    'about.p2': 'Tengo experiencia con <strong>arquitectura MVC</strong>, integración con <strong>base de datos en la nube (Supabase)</strong>, generación de informes en PDF, APIs RESTful e interfaces modernas con Python/Flet. También desarrollo landing pages y sistemas web con HTML, CSS, JavaScript y PHP.',
-    'about.p3': 'Graduado en <strong>Senac Minas</strong> como <strong>Técnico en Informática</strong>, buscando siempre entregar valor real a través de software bien construido.',
-    'about.fact1': 'años escribiendo código',
-    'about.fact3': 'idiomas',
+    'about.label': "Sobre el estudio",
+    'about.title': "Estudio pequeño,<br><em>software que aguanta el día a día.</em>",
+    'about.lead': "Catta Studios es un estudio independiente llevado por Gabriel Dias, en Divinópolis, MG, Brasil. Empezó en automatización y administración de Linux y se volvió un lugar para construir apps y sistemas que gente de verdad usa en el trabajo.",
+    'about.p2': "Trabajamos con <strong>arquitectura MVC</strong>, bases de datos locales y <strong>en la nube</strong>, informes en PDF, APIs RESTful e interfaces en Python/Flet, React y TypeScript. También entregamos sistemas web completos con JavaScript, PHP y PostgreSQL.",
+    'about.p3': "Detrás del estudio hay un <strong>Técnico en Informática</strong> formado en <strong>Senac Minas</strong>, con la manía de entregar solo lo que él mismo usaría.",
+    'about.fact1': "años construyendo software",
+    'about.fact3': "idiomas",
 
-    'toolkit.title': 'Caja de herramientas',
-    'toolkit.g1': 'Lenguajes', 'toolkit.g2': 'Interfaces',
-    'toolkit.g3': 'Datos & back-end', 'toolkit.g4': 'Entorno',
-    'toolkit.responsive': 'Diseño responsivo',
+    'toolkit.title': "Stack del estudio",
+    'toolkit.g1': "Lenguajes", 'toolkit.g2': "Interfaces",
+    'toolkit.g3': "Datos y back-end", 'toolkit.g4': "Entorno",
+    'toolkit.responsive': "Diseño responsivo",
 
-    'projects.label': 'Proyectos',
-    'projects.title': 'Lo que <em>construí</em>',
-    'projects.sub': 'Soluciones reales para problemas reales — cada proyecto tiene una historia y un objetivo claro.',
-    'filter.all': 'Todos', 'filter.tool': 'Herramientas',
-    'project.visit': 'Visitar',
+    'projects.label': "Proyectos",
+    'projects.title': "Lo que <em>construimos</em>",
+    'projects.sub': "Cuatro proyectos que muestran el alcance del estudio — del ERP que mueve una empresa al script que resuelve un problema de escritorio en Linux.",
+    'project.visit': "Visitar",
 
-    'proj.rodao': 'Sistema de gestión de fletes con precios dinámicos por peso y estado de destino, registro de clientes e integración con la API ViaCEP. Arquitectura frontend modular con persistencia local.',
-    'proj.unbox': 'Software comercial de control de stock e inventario con arquitectura MVC, gestión de préstamos con comprobantes en PDF, niveles de acceso diferenciados (Admin/User) y persistencia estructurada.',
-    'proj.hermes': 'Sistema de gestión empresarial completo (ERP) con módulos de Stock, Ventas, Finanzas y Facturación. SPA modular con reglas de negocio robustas, control de caja y exportación de informes.',
-    'proj.spoton': 'Predictor de resultados de partidos usando modelado estadístico con distribución de Poisson y corrección Dixon-Coles. Backend FastAPI con análisis de datos deportivos en tiempo real.',
-    'proj.pulse': 'Plataforma de gestión de estudio musical con control de bandas, equipos, reservas y facturación. Interfaz premium inspirada en Bento Pro, Glassmorphism y Dynamic Island.',
-    'proj.carona': 'Aplicación PWA offline-first para control mensual de viajes compartidos y división de costos de gasolina. Interfaz mobile-friendly con persistencia local y funcionamiento offline completo.',
-    'proj.wallpaper': 'Solución para ejecutar wallpapers animados de Steam Workshop de forma nativa en GNOME Shell con X11 — compatible con Zorin OS, Ubuntu y distros basadas en GNOME.',
-    'proj.festa': 'Landing page moderna y de alta conversión para una empresa de alquiler de kits de fiesta en Brasil. Alternancia Dark/Light/System implementada puramente con HTML y CSS moderno.',
+    'proj.hermes': "ERP completo con módulos de Inventario, Ventas, Finanzas y Facturación. SPA modular con reglas de negocio robustas, control de caja, PostgreSQL y exportación de informes. Es el sistema más grande del estudio.",
+    'proj.boodice': "Companion de mesa para D&D 5e: hoja de personaje, tirada de dados y glosario de reglas, todo offline. Monorepo en TypeScript que entrega la misma base como app Android (Capacitor), escritorio (Electron) y PWA, con SQLite local.",
+    'proj.unbox': "Control de stock e inventario en arquitectura MVC, con gestión de préstamos, comprobantes en PDF y niveles de acceso (Admin/User). Hecho para inventario escolar.",
+    'proj.wallpaper': "Wallpapers animados de Steam Workshop corriendo de forma nativa en GNOME Shell con X11, sin depender de Windows. Compatible con Zorin OS, Ubuntu y derivadas — es el proyecto del estudio que más atención atrajo de afuera.",
 
-    'contact.label': 'Contacto',
-    'contact.title': '¿Tienes un proyecto?<br><em>Vamos por un café.</em>',
-    'contact.sub': 'Abierto a freelances, alianzas y oportunidades de trabajo. Mándame un mensaje y construimos algo bueno juntos.',
+    'contact.label': "Contacto",
+    'contact.title': "¿Tienes un proyecto?<br><em>Hablemos.</em>",
+    'contact.sub': "Abiertos a alianzas, proyectos a medida y colaboraciones. Mándanos un mensaje y construimos algo bueno juntos.",
 
-    'footer.made': 'Hecho con ☕ y cariño por',
-    'footer.source': 'Código fuente',
+    'footer.made': "Hecho con cariño por",
+    'footer.source': "Código fuente",
 
-    'aria.theme': 'Alternar tema claro y oscuro',
-    'aria.nav': 'Navegación principal',
-    'aria.hero': 'Presentación',
-    'aria.menu': 'Abrir menú',
-    'aria.lang': 'Elegir idioma',
-    'aria.live': 'Ver proyecto en vivo',
-    'aria.gh': 'Ver código en GitHub',
-    'aria.cat': 'Animación en pixel art de un gato que parpadea y juega con un ovillo de lana',
+    'aria.theme': "Alternar tema claro y oscuro",
+    'aria.nav': "Navegación principal",
+    'aria.hero': "Presentación",
+    'aria.menu': "Abrir menú",
+    'aria.lang': "Elegir idioma",
+    'aria.live': "Ver proyecto en vivo",
+    'aria.gh': "Ver código en GitHub",
+    'aria.cat': "Animación en pixel art de un gato que parpadea y juega con un ovillo de lana",
   },
 };
 
