@@ -4,16 +4,17 @@ Graduated IT technician (Senac MG) who builds tools that solve real problems, mo
 
 ### Things I've made
 
-- **[Pauca](https://github.com/berelels/pauca)**: a minimalist Android launcher that makes your phone a little quieter.
-- **[Spot On!](https://github.com/berelels/spot-on)**: predicts football results with Poisson models and machine learning. Python + FastAPI.
+- **[Pauca](https://cattastudios.com.br/pauca/)**: a minimalist Android launcher that makes your phone a little quieter.
+- **[OpenAlt](https://cattastudios.com.br/openalt/)**: Use your phone or tablet as an extra monitor or PC display mirror.
 - **[Linux Wallpaper Engine](https://github.com/berelels/linux-wallpaper-engine-gnome-xorg)**: runs animated Steam Workshop wallpapers natively on GNOME/X11. Bash.
 
 ### Tools I reach for
 
-Python · FastAPI · PHP · PostgreSQL · MySQL · Bash · Linux
+Python · FastAPI · PHP · PostgreSQL · MySQL · Bash · Linux and others
 
 ### Off the keyboard
 
 Guitar and ukulele, football stats, Hollow Knight and Pokémon.
 
+[Catta Studios](https://cattastudios.com.br/)
 [LinkedIn](https://www.linkedin.com/in/berelels)
