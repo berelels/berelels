@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,100:3a3a3a&height=200&section=header&text=Welcome%20to%20Gabriel's%20GitHub&fontColor=ffffff&fontSize=36&fontAlignY=38&desc=%3C%2F%3E&descAlignY=58&descSize=20" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,100:3a3a3a&height=200&section=header&text=Welcome%20to%20Gabriel%27s%20GitHub&fontColor=ffffff&fontSize=36&fontAlignY=38&desc=%26lt%3B%2F%26gt%3B&descAlignY=58&descSize=20" />
 </p>
 
 <p align="center">
@@ -35,12 +35,12 @@ Hi, I'm **Gabriel**. Graduated IT technician (Senac MG) who builds tools that so
 ## 📈 Statistics
 
 <p align="center">
-  <img height="170" src="https://github-readme-stats.hackclub.dev/api?username=berelels&show_icons=true&bg_color=000000&title_color=ffffff&text_color=ffffff&icon_color=ffffff&border_color=555555&ring_color=ffffff" />
+  <img height="170" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=berelels&theme=dark" />
   <img height="170" src="https://streak-stats.demolab.com?user=berelels&background=000000&border=555555&stroke=555555&ring=ffffff&fire=ffffff&currStreakNum=ffffff&sideNums=ffffff&currStreakLabel=ffffff&sideLabels=ffffff&dates=aaaaaa" />
 </p>
 
 <p align="center">
-  <img width="100%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=berelels&theme=github_dark" />
+  <img width="100%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=berelels&theme=dark" />
 </p>
 
 ## 🎸 Off the keyboard
