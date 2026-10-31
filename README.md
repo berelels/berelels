@@ -8,18 +8,18 @@
   <a href="https://github.com/berelels"><img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white" /></a>
 </p>
 
-## 👋 About me
+## About me
 
 Hi, I'm **Gabriel**. Graduated IT technician (Senac MG) who builds tools that solve real problems, mostly backend, desktop apps, and Linux tinkering. Heading into a Software Engineering degree.
 
-## 🛠️ Things I've made
+## Things I've made
 
 - **[Pauca](https://cattastudios.com.br/pauca/)**: a minimalist Android launcher that makes your phone a little quieter.
 - **[OpenAlt](https://cattastudios.com.br/openalt/)**: use your phone or tablet as an extra monitor or PC display mirror.
 - **[Linux Wallpaper Engine](https://github.com/berelels/linux-wallpaper-engine-gnome-xorg)**: runs animated Steam Workshop wallpapers natively on GNOME/X11. Bash.
 - **[Lydia](https://github.com/berelels/lydia)**: a workstation at the top of your screen, a dynamic island for Linux.
 
-## 💻 Technologies
+## Technologies
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-000000?style=for-the-badge&logo=python&logoColor=white" />
@@ -46,7 +46,7 @@ Hi, I'm **Gabriel**. Graduated IT technician (Senac MG) who builds tools that so
   <img src="https://img.shields.io/badge/Java-2b2b2b?style=for-the-badge&logo=openjdk&logoColor=white" />
 </p>
 
-## 📈 Statistics
+## Statistics
 
 <p align="center">
   <img width="49%" src="assets/stats.svg" />
@@ -57,6 +57,6 @@ Hi, I'm **Gabriel**. Graduated IT technician (Senac MG) who builds tools that so
   <img width="100%" src="assets/graph.svg" />
 </p>
 
-## 🎸 Off the keyboard
+## Off the keyboard
 
 Guitar and ukulele, football stats, Hollow Knight and Pokémon.
