@@ -17,7 +17,7 @@ Hi, I'm **Gabriel**. Graduated IT technician (Senac MG) who builds tools that so
 - **[Pauca](https://cattastudios.com.br/pauca/)**: a minimalist Android launcher that makes your phone a little quieter.
 - **[OpenAlt](https://cattastudios.com.br/openalt/)**: use your phone or tablet as an extra monitor or PC display mirror.
 - **[Linux Wallpaper Engine](https://github.com/berelels/linux-wallpaper-engine-gnome-xorg)**: runs animated Steam Workshop wallpapers natively on GNOME/X11. Bash.
-- **[Lydia](https://github.com/berelels/lydia)**: a workstation at the top of your screen, a dynamic island for Linux.
+- **[Lydia](https://cattastudios.com.br/lydia-releases/)**: a workstation at the top of your screen, a dynamic island for Linux.
 
 ## Technologies
 
