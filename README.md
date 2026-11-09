@@ -46,7 +46,6 @@ Hi, I'm **Gabriel**. Graduated IT technician (Senac MG) who builds tools that so
 
 <p align="center">
   <img width="49%" src="assets/stats.svg" />
-  <img width="49%" src="assets/streak.svg" />
 </p>
 
 <p align="center">
