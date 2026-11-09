@@ -1,16 +1,12 @@
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,100:3a3a3a&height=200&section=header&text=Welcome%20to%20Gabriel%27s%20GitHub&fontColor=ffffff&fontSize=36&fontAlignY=38&desc=%26lt%3B%2F%26gt%3B&descAlignY=58&descSize=20" />
-</p>
+## About me
+
+Hi, I'm **Gabriel**. Graduated IT technician (Senac MG) who builds tools that solve real problems, mostly backend, desktop apps, and Linux tinkering. Heading into a Software Engineering degree.
 
 <p align="center">
   <a href="https://www.linkedin.com/in/berelels"><img src="https://img.shields.io/badge/LinkedIn-000000?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
   <a href="https://cattastudios.com.br/"><img src="https://img.shields.io/badge/Catta%20Studios-000000?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
   <a href="https://github.com/berelels"><img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white" /></a>
 </p>
-
-## About me
-
-Hi, I'm **Gabriel**. Graduated IT technician (Senac MG) who builds tools that solve real problems, mostly backend, desktop apps, and Linux tinkering. Heading into a Software Engineering degree.
 
 ## Things I've made
 
